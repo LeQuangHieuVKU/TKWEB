@@ -1,7 +1,7 @@
 "use strict";
 
 /*
-inport all component and functions
+import all component and functions
 */
 import { sidebar } from "./sidebar.js";
 import { api_key, imageBaseURL, fetchDataFromServer } from "./api.js";
@@ -32,7 +32,7 @@ const homePageSections = [
 ];
 
 /*fetch all genre eg: [{id: , name }]
-  then change genre formate eg {123, action}
+  then change genre format eg {123, action}
   */
 const genreList = {
   // create genre string from genre_id eg: [3,43] -> "action, romance"
@@ -165,6 +165,7 @@ const heroBanner = function ({ results: movieList }) {
 const addHeroSlide = function () {
   const sliderItems = document.querySelectorAll("[slider-item]");
   const sliderControls = document.querySelectorAll("[slider-control]");
+  const bannerSlider = document.querySelector(".banner-slider");
 
   let lastSliderItem = sliderItems[0];
   let lastSliderControl = sliderControls[0];
@@ -177,16 +178,36 @@ const addHeroSlide = function () {
     lastSliderControl.classList.remove("active");
 
     //This == slider-control
-    sliderItems[Number(this.getAttribute("slider-control"))].classList.add(
-      "active"
-    );
+    const currentIndex = Number(this.getAttribute("slider-control"));
+    sliderItems[currentIndex].classList.add("active");
     this.classList.add("active");
 
-    lastSliderItem = sliderItems[Number(this.getAttribute("slider-control"))];
+    lastSliderItem = sliderItems[currentIndex];
     lastSliderControl = this;
+
+    bannerSlider.scrollTo({
+      left: sliderItems[currentIndex].offsetLeft,
+      behavior: "smooth"
+    });
+
+    resetAutoplay();
   };
 
   addEventOnElements(sliderControls, "click", sliderStart);
+
+  let autoplayInterval = setInterval(nextSlide, 5000);
+
+  function nextSlide() {
+    let currentIndex = Array.from(sliderControls).indexOf(lastSliderControl);
+    let nextIndex = (currentIndex + 1) % sliderItems.length;
+
+    sliderControls[nextIndex].click();
+  }
+
+  function resetAutoplay() {
+    clearInterval(autoplayInterval);
+    autoplayInterval = setInterval(nextSlide, 5000);
+  }
 };
 
 const createMovieList = function ({ results: movieList }, title) {
