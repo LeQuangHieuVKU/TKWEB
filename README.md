@@ -1,6 +1,6 @@
 ## TVFlix - Movie Web App (Netflix-style UI)
 
-TVFlix là một dự án web front-end thuần **HTML/CSS/JavaScript** mô phỏng giao diện xem phim kiểu Netflix.  
+TVFlix là một dự án web front-end thuần túy **HTML/CSS/JavaScript** mô phỏng giao diện xem phim kiểu Netflix.  
 Ứng dụng lấy dữ liệu phim theo thời gian thực từ **TMDB API** và hiển thị theo nhiều màn hình khác nhau.
 
 ## Mục tiêu dự án
@@ -63,7 +63,7 @@ Vì là dự án front-end tĩnh, bạn có thể chạy nhanh bằng 1 trong 2 
 1. Mở trực tiếp file `index.html` bằng trình duyệt.
 2. Hoặc dùng local server (khuyến nghị), ví dụ với VS Code + Live Server.
 
-## Ghi chú
+## Ghi chú bảo mật
 
-- Dự án hiện đang dùng TMDB API key trong file `assets/js/api.js`.
-- Nếu API key hết hạn hoặc bị giới hạn, cần thay bằng key mới để ứng dụng hoạt động bình thường.
+- Trong phiên bản hiện tại, TMDB API key đang được khai báo trực tiếp trong `assets/js/api.js`.
+- Thực tế triển khai nên chuyển API key sang biến môi trường (thông qua backend/proxy) và không commit key thật lên repository.
